@@ -13,5 +13,20 @@
     "timestamp": "2026-08-23T04:24:51.665Z",
     "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
     "hash": "8068cd59744649785eac0edefe13acb239f217b2ba39165059a8c3deaad312cc"
+  },
+  {
+    "blockIndex": 1,
+    "batchId": "5e2572fa-bebe-4ac3-b3b8-6163c37eb9ae",
+    "data": {
+      "quantity": 50,
+      "location": "27N, 42W",
+      "harvestDate": "2026-08-23",
+      "beekeeperName": "Hey",
+      "hiveId": "HIVE-UP-42",
+      "purityScore": 99
+    },
+    "timestamp": "2026-08-23T14:06:44.237Z",
+    "previousHash": "8068cd59744649785eac0edefe13acb239f217b2ba39165059a8c3deaad312cc",
+    "hash": "f61289b0807c6e55c28ea23aa54eb2e78650e01d87d28cc35d6a27f368c4b9f9"
   }
 ]

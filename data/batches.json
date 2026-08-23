@@ -6,11 +6,25 @@
     "hiveId": "HIVE-UP-42",
     "location": "27, 42",
     "harvestDate": "67",
-    "quantity": 78.7,
+    "quantity": "45",
     "floralSource": "Mixed flora",
     "notes": "hEY",
     "purityScore": 86,
     "photoFilename": null,
     "registeredAt": "2026-08-23T04:24:51.662Z"
+  },
+  {
+    "id": "5e2572fa-bebe-4ac3-b3b8-6163c37eb9ae",
+    "beekeeperName": "Hey",
+    "beekeeperVillage": "UP",
+    "hiveId": "HIVE-UP-42",
+    "location": "27N, 42W",
+    "harvestDate": "2026-08-23",
+    "quantity": 50,
+    "floralSource": "Litchi",
+    "notes": "",
+    "purityScore": 99,
+    "photoFilename": null,
+    "registeredAt": "2026-08-23T14:06:44.235Z"
   }
 ]
