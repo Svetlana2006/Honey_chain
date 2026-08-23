@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Honey Chain - Fair Price Suggestion</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#734800",
+                      "tertiary-fixed": "#ffddb8",
+                      "surface-container-low": "#f3f4f3",
+                      "surface-tint": "#7c5800",
+                      "primary-fixed-dim": "#ffba20",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#eeeeed",
+                      "on-secondary-container": "#306d58",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#0b513d",
+                      "tertiary-container": "#ffb657",
+                      "outline": "#837560",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-error-container": "#93000a",
+                      "background": "#f9f9f8",
+                      "inverse-primary": "#ffba20",
+                      "surface-bright": "#f9f9f8",
+                      "inverse-surface": "#2f3130",
+                      "secondary": "#2b6954",
+                      "primary-container": "#ffb800",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#514532",
+                      "primary": "#7c5800",
+                      "tertiary": "#855300",
+                      "secondary-fixed-dim": "#95d3ba",
+                      "secondary-container": "#adedd3",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary-container": "#6b4c00",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#271900",
+                      "surface-dim": "#dadad9",
+                      "inverse-on-surface": "#f1f1f0",
+                      "surface": "#f9f9f8",
+                      "primary-fixed": "#ffdea8",
+                      "surface-container-high": "#e8e8e7",
+                      "on-secondary-fixed": "#002117",
+                      "on-primary-fixed-variant": "#5e4200",
+                      "surface-variant": "#e2e2e2",
+                      "on-tertiary-fixed": "#2a1700",
+                      "outline-variant": "#d5c4ab",
+                      "on-surface": "#1a1c1c",
+                      "on-background": "#1a1c1c",
+                      "secondary-fixed": "#b0f0d6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "lg": "48px",
+                      "xs": "4px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "sm": "12px",
+                      "xl": "80px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "mono-data": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "30px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "mono-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(43, 105, 84, 0.1);
+        }
+        
+        .verified-border {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Pulse animation for live status */
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 105, 84, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(43, 105, 84, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 105, 84, 0); }
+        }
+        .live-dot {
+            animation: pulse-dot 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopNavBar (Mobile) / TopAppBar (Desktop context) -->
+<header class="hidden md:flex fixed top-0 w-full z-50 justify-between items-center px-margin-desktop py-4 bg-surface/70 backdrop-blur-xl dark:bg-inverse-surface/70 text-primary dark:text-primary-fixed-dim border-b border-secondary/10 shadow-sm font-body-md text-body-md transition-all duration-300">
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Honey Chain</span>
+</div>
+<nav class="flex gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 opacity-80 transition-opacity" href="#">Ledger</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Admin</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="bg-primary-container text-on-primary-container hover:bg-primary-container/90 px-4 py-2 rounded-lg font-mono-data text-mono-data flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+                Verify Batch
+            </button>
+<img alt="User profile" class="w-10 h-10 rounded-full border border-secondary/20 object-cover" data-alt="A clean, minimalist user profile avatar in a high-tech agricultural dashboard setting, sharp focus, professional lighting, corporate modern aesthetic with subtle amber and green tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD8SPX4eIKrmYcbywmV-CD1PG5ew0OvXXFRcrLlg09yBeL0efVpEKEsyKuO9ON0tOmP47UFH_gP2gOUgEWAHJOK0BmTCy85_XFaMz6o59BVyJrfBs86ShmFP-hBHwcMdrF_l9E5_4BwZ0wB__gmgGAVXzSUn7uwlkwEQ5zxuwxp7WVv95sklfkwDrqvhOyaKze81wtbUCHViqE8bEQEuXv_JnwXS3Y9TW2dKQUjduUjdqV4Z4v5bry4g"/>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden lg:flex flex-col h-screen sticky top-0 p-4 bg-surface-container-low dark:bg-surface-container-lowest text-primary dark:text-primary-fixed-dim border-r border-secondary/10 w-64 z-40">
+<div class="flex items-center gap-3 mb-12 px-2 mt-4">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]">hive</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Honey Chain</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-80">Blockchain Verification</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2 font-label-caps text-label-caps">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Batches
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+                Ledger
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-4">
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-lg font-mono-data text-mono-data hover:bg-secondary/90 transition-colors shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                Register Batch
+            </button>
+<div class="border-t border-secondary/10 pt-4 flex flex-col gap-2 font-label-caps text-label-caps">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">sync_alt</span>
+                    Role Switcher
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl md:pt-[104px] pb-32 md:pb-xl">
+<!-- Header Section -->
+<header class="mb-lg">
+<div class="flex items-center gap-3 mb-xs">
+<div class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-mono-data text-[12px] uppercase tracking-widest font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary live-dot"></span>
+                    Live Market Data
+                </div>
+<span class="text-on-surface-variant font-mono-data text-mono-data opacity-70">Batch ID: #HC-8829-LIT</span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background mb-2">Fair Price Suggestion</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Algorithmically derived floor price based on verified botanical purity, batch volume, and real-time Indian market indices.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Price Card (Hero) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-md border border-surface-variant relative overflow-hidden flex flex-col">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+<div class="flex justify-between items-start mb-lg relative z-10">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Suggested Floor Price</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-background">₹450</span>
+<span class="font-body-lg text-body-lg text-on-surface-variant">/ kg</span>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-3 text-right">
+<span class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Total Batch Value (240kg)</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">₹1,08,000</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-sm mb-lg relative z-10">
+<div class="glass-panel rounded-lg p-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">local_florist</span>
+</div>
+<div>
+<span class="block font-label-caps text-[10px] text-on-surface-variant uppercase">Botanical</span>
+<span class="font-mono-data text-mono-data font-semibold text-on-background">Litchi (Monofloral)</span>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">science</span>
+</div>
+<div>
+<span class="block font-label-caps text-[10px] text-on-surface-variant uppercase">Purity Score</span>
+<span class="font-mono-data text-mono-data font-semibold text-on-background">98.4% (Grade A+)</span>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">scale</span>
+</div>
+<div>
+<span class="block font-label-caps text-[10px] text-on-surface-variant uppercase">Volume Tier</span>
+<span class="font-mono-data text-mono-data font-semibold text-on-background">Medium (240kg)</span>
+</div>
+</div>
+</div>
+<div class="mt-auto flex gap-4 relative z-10 border-t border-surface-variant pt-md">
+<button class="flex-1 bg-primary-container text-on-primary-container hover:bg-primary-container/90 py-3 rounded-lg font-headline-sm text-[16px] flex justify-center items-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Accept Suggestion
+                    </button>
+<button class="flex-1 border border-secondary text-secondary hover:bg-secondary/5 py-3 rounded-lg font-headline-sm text-[16px] flex justify-center items-center gap-2 transition-colors">
+<span class="material-symbols-outlined">storefront</span>
+                        Link to Market
+                    </button>
+</div>
+</div>
+<!-- Market Comparison -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl p-md border border-secondary/10 flex flex-col">
+<h3 class="font-headline-sm text-[18px] text-on-background mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+                    Market Comparison
+                </h3>
+<div class="flex-1 space-y-4">
+<div class="p-3 bg-surface-container-lowest rounded-lg border-l-4 border-surface-variant flex justify-between items-center shadow-sm">
+<div>
+<span class="block font-label-caps text-[11px] text-on-surface-variant uppercase mb-1">Standard Multiflora (Avg)</span>
+<span class="font-mono-data text-[15px] font-semibold">₹180 - ₹220 / kg</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-50">arrow_downward</span>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-lg border-l-4 border-tertiary-container flex justify-between items-center shadow-sm">
+<div>
+<span class="block font-label-caps text-[11px] text-on-surface-variant uppercase mb-1">Premium Monofloral (Litchi)</span>
+<span class="font-mono-data text-[15px] font-semibold text-on-tertiary-container">₹380 - ₹420 / kg</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container">arrow_forward</span>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-lg verified-border flex justify-between items-center shadow-sm relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary/5"></div>
+<div class="relative z-10">
+<span class="block font-label-caps text-[11px] text-secondary uppercase mb-1 font-bold">Your Verified Batch</span>
+<span class="font-mono-data text-[16px] font-bold text-secondary">₹450 / kg</span>
+</div>
+<span class="material-symbols-outlined text-secondary relative z-10">arrow_upward</span>
+</div>
+</div>
+<p class="text-[12px] text-on-surface-variant mt-4 opacity-80 leading-tight">
+                    *Your price commands a +7% premium over typical Litchi honey due to verified purity scores (&gt;98%) and immutable blockchain provenance.
+                </p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md dark:bg-inverse-surface/80 text-primary dark:text-primary-fixed-dim font-label-caps text-label-caps-mobile border-t border-secondary/10 shadow-[0_-4px_12px_rgba(0,0,0,0.04)] rounded-t-xl pb-6">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">database</span>
+            Ledger
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">qr_code_scanner</span>
+            Verify
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+            Profile
+        </a>
+</nav>
+</body></html>

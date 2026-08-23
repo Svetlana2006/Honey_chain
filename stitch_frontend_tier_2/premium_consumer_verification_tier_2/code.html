@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Honey Chain - Consumer Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#734800",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-low": "#f3f4f3",
+                        "surface-tint": "#7c5800",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeed",
+                        "on-secondary-container": "#306d58",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "tertiary-container": "#ffb657",
+                        "outline": "#837560",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9f8",
+                        "inverse-primary": "#ffba20",
+                        "surface-bright": "#f9f9f8",
+                        "inverse-surface": "#2f3130",
+                        "secondary": "#2b6954",
+                        "primary-container": "#ffb800",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#514532",
+                        "primary": "#7c5800",
+                        "tertiary": "#855300",
+                        "secondary-fixed-dim": "#95d3ba",
+                        "secondary-container": "#adedd3",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-container": "#6b4c00",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#271900",
+                        "surface-dim": "#dadad9",
+                        "inverse-on-surface": "#f1f1f0",
+                        "surface": "#f9f9f8",
+                        "primary-fixed": "#ffdea8",
+                        "surface-container-high": "#e8e8e7",
+                        "on-secondary-fixed": "#002117",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary-fixed": "#2a1700",
+                        "outline-variant": "#d5c4ab",
+                        "on-surface": "#1a1c1c",
+                        "on-background": "#1a1c1c",
+                        "secondary-fixed": "#b0f0d6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "lg": "48px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "xl": "80px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "mono-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(43, 105, 84, 0.1);
+        }
+        .verified-accent {
+            border-left: 4px solid #2b6954;
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(43, 105, 84, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(43, 105, 84, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(43, 105, 84, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md font-sans antialiased overflow-x-hidden flex flex-col lg:flex-row">
+<!-- Desktop Nav (Suppressed for transactional verification screen as per rules) -->
+<!-- Mobile Nav (Suppressed for transactional verification screen as per rules) -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<!-- Header Section -->
+<header class="mb-lg text-center flex flex-col items-center">
+<div class="inline-flex items-center gap-xs mb-md">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-dot"></span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">Live Ledger Connected</span>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-sm">Verification Report</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Batch ID: <span class="font-mono-data text-mono-data bg-surface-container-low px-2 py-1 rounded">HTX-992-KLA</span></p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md auto-rows-min">
+<!-- Hero Product Card (Spans 8 cols on desktop) -->
+<div class="md:col-span-8 glass-panel rounded-xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] verified-accent flex flex-col sm:flex-row relative">
+<div class="w-full sm:w-2/5 h-64 sm:h-auto relative">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A pristine, glowing jar of golden mustard honey sitting on a minimalist white laboratory surface. Subtle technical readouts float in the background, blending organic agricultural warmth with sterile, high-tech purity. Soft, diffused lighting highlights the amber tones of the honey against an ivory backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTC6JYlFpIrycjwGzcaGOIxamJTm8dvY78Xgi3V39dxOGxIj-42ZWDViOLUbOMiE6trAqowSJVUyJHwtXcqTq4oFZA3NMUyQH5OH9q2ZAxgfs3J-aMP6IQ7m5OeyEtAHRMwCfU21dKatrzYIa8FFXPBwQNuk2z9A_16zTO1VO79cOEGZPtv6--xqLsQm2U5jS2PgsryayNCHBkQNf4FeQ87aptNvlku94wlczSzs6oAku2BGt0h1K-fQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent sm:hidden"></div>
+</div>
+<div class="w-full sm:w-3/5 p-md md:p-lg flex flex-col justify-between relative z-10 bg-white/40 backdrop-blur-sm sm:backdrop-blur-none sm:bg-transparent">
+<div>
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-secondary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase">Authentic</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Mustard Honey</h2>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-sm">location_on</span> Punjab, India
+                        </p>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/10 text-on-tertiary-container font-label-caps text-label-caps">Raw</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/10 text-on-tertiary-container font-label-caps text-label-caps">Unfiltered</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/10 text-on-tertiary-container font-label-caps text-label-caps">Crystallized</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Score (Spans 4 cols on desktop) -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl p-md flex flex-col items-center justify-center text-center shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-secondary/10">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-sm">Trust Score</p>
+<div class="relative w-32 h-32 flex items-center justify-center mb-sm">
+<svg class="w-full h-full absolute inset-0 transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#e8e8e7" stroke-width="8"></circle>
+<circle class="transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="45" stroke="#2b6954" stroke-dasharray="283" stroke-dashoffset="14" stroke-width="8"></circle>
+</svg>
+<span class="font-display-lg text-display-lg text-secondary relative z-10">A</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Top 5% Purity Index</p>
+</div>
+<!-- Provenance Map (Spans 6 cols) -->
+<div class="md:col-span-6 glass-panel rounded-xl p-md shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined">map</span> Botanical Origin
+                </h3>
+<div class="w-full h-48 rounded-lg overflow-hidden mb-sm relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist satellite map style rendering of the Punjab region, emphasizing agricultural fields in subtle amber and green tones against an ivory background. A precise, glowing geometric marker pinpoints a specific farm location, reinforcing the high-tech provenance theme." data-location="Punjab" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRdvR44zY54E-m1C5Pb0Fd6tZrlZv5bOCBpNXCOysLiLDk2KIZTHlzunLrdV3S7jYAI_UbZF_9R996r43XgBxm6JGVCD7o5lUfU05azRMyPS5ygwkllm9nqCpXN-htOIozauc6cutk4TQAAVqfTxm9RHHnn_0MqI6b5ZUvuZ32Ge4l6TxovlxPlBTCeWOrfzqvS7xr1ap7JBxU1th9WIlXoUp4JZDjWofVdJkq7wcXumvD3jd6sZaxsA"/>
+</div>
+<div class="flex justify-between items-end mt-auto pt-sm border-t border-secondary/10">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Harvest Date</p>
+<p class="font-mono-data text-mono-data text-on-surface">Oct 12, 2023</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-right">Beekeeper</p>
+<p class="font-body-md text-body-md text-on-surface">Singh Apiaries</p>
+</div>
+</div>
+</div>
+<!-- Economic Verification (Spans 6 cols) -->
+<div class="md:col-span-6 bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-secondary/10 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined">payments</span> Fair Trade Ledger
+                </h3>
+<div class="space-y-sm mb-md flex-1">
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">Verified Price Floor</span>
+<span class="font-mono-data text-mono-data text-primary font-bold">₹150 / kg</span>
+</div>
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">Farmer Received</span>
+<span class="font-mono-data text-mono-data text-secondary">₹185 / kg</span>
+</div>
+</div>
+<div class="p-sm bg-secondary-container/30 rounded-lg flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary mt-1">verified_user</span>
+<p class="font-body-sm text-sm text-on-surface-variant">This batch was transacted above the regional minimum price, ensuring fair compensation to the primary producer.</p>
+</div>
+</div>
+</div>
+<div class="mt-lg text-center">
+<button class="bg-primary-container text-on-primary-container font-headline-sm text-headline-sm px-lg py-md rounded-full inline-flex items-center gap-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined">receipt_long</span>
+                View Full Blockchain Record
+            </button>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Honey Chain - Trust Score</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#734800",
+                      "tertiary-fixed": "#ffddb8",
+                      "surface-container-low": "#f3f4f3",
+                      "surface-tint": "#7c5800",
+                      "primary-fixed-dim": "#ffba20",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#eeeeed",
+                      "on-secondary-container": "#306d58",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#0b513d",
+                      "tertiary-container": "#ffb657",
+                      "outline": "#837560",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-error-container": "#93000a",
+                      "background": "#f9f9f8",
+                      "inverse-primary": "#ffba20",
+                      "surface-bright": "#f9f9f8",
+                      "inverse-surface": "#2f3130",
+                      "secondary": "#2b6954",
+                      "primary-container": "#ffb800",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#514532",
+                      "primary": "#7c5800",
+                      "tertiary": "#855300",
+                      "secondary-fixed-dim": "#95d3ba",
+                      "secondary-container": "#adedd3",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary-container": "#6b4c00",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#271900",
+                      "surface-dim": "#dadad9",
+                      "inverse-on-surface": "#f1f1f0",
+                      "surface": "#f9f9f8",
+                      "primary-fixed": "#ffdea8",
+                      "surface-container-high": "#e8e8e7",
+                      "on-secondary-fixed": "#002117",
+                      "on-primary-fixed-variant": "#5e4200",
+                      "surface-variant": "#e2e2e2",
+                      "on-tertiary-fixed": "#2a1700",
+                      "outline-variant": "#d5c4ab",
+                      "on-surface": "#1a1c1c",
+                      "on-background": "#1a1c1c",
+                      "secondary-fixed": "#b0f0d6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "lg": "48px",
+                      "xs": "4px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "sm": "12px",
+                      "xl": "80px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "mono-data": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "mono-data": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/70 backdrop-blur-xl dark:bg-inverse-surface/70 border-b border-secondary/10 shadow-sm hidden md:flex">
+<div class="flex items-center gap-md">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Honey Chain</span>
+<nav class="flex items-center gap-md ml-lg">
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Ledger</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Admin</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-body-md text-body-md font-medium text-primary border border-primary/20 px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors">Verify Batch</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling agricultural inspector in a bright, modern laboratory setting. The lighting is soft and high-key white, reflecting a clean and trustworthy environment. Warm amber and deep forest green accents are subtly present in the background. The mood is reliable and scientific." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1gBLrP_sZcDJL9FwdYCrHnytQ1ihKd6vas36QgX6AxX8aBzRc8ny8E9-xdrUZ_P7CQuhIMLuN0GoZypd8faHelVb23D4OaZUS9QXxCIKfxcum4OUz21sjuDlvxXd5xX_4OIyYKVW_aI4dOznq84C83dvqwJzv7iv8MTBdnB9vTc0bivrrLMIw4x14-EexuOtX3vZUkN2yklehjC2xWsgZnnDK7NW__Vslpmkk_LNWbJtv3T-cNvnQxg"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-xl pb-xl px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto min-h-screen flex items-center justify-center">
+<!-- Trust Score Component -->
+<section class="w-full max-w-4xl mx-auto">
+<div class="mb-lg text-center">
+<h1 class="font-display-lg text-display-lg text-on-background mb-base">Batch Verification Report</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Comprehensive analysis of Batch #HC-892A. Verified through blockchain immutability and independent laboratory testing.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter relative">
+<!-- Background decorative element for "Glass" feel -->
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container-lowest to-surface-container-low rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] -z-10 border border-secondary/5"></div>
+<!-- Primary Score Card (Left) -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-xl p-lg flex flex-col items-center justify-center relative overflow-hidden border border-secondary/10 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+<!-- Decorative subtle gradient behind score -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl"></div>
+<div class="text-center relative z-10">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-sm">Overall Trust Score</span>
+<div class="w-48 h-48 rounded-full border-4 border-secondary flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-sm mx-auto mb-md shadow-inner relative">
+<!-- Animated Ring SVG Placeholder (Simulated) -->
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-secondary-fixed/30" cx="50" cy="50" fill="none" r="46" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-secondary stroke-[4px]" cx="50" cy="50" fill="none" r="46" stroke="currentColor" stroke-dasharray="289" stroke-dashoffset="20" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-display-lg text-display-lg text-secondary text-7xl">A</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-background">Exceptional Purity</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Exceeds all global quality standards.</p>
+</div>
+<!-- Verified Badge -->
+<div class="mt-lg flex items-center gap-2 bg-secondary/10 px-4 py-2 rounded-full border border-secondary/20">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-caps text-label-caps text-secondary">Blockchain Verified</span>
+</div>
+</div>
+<!-- Breakdown Metrics (Right) -->
+<div class="md:col-span-7 flex flex-col gap-sm justify-center p-md">
+<!-- Metric: Purity -->
+<div class="bg-surface-container-lowest p-md rounded-lg border-l-4 border-primary-container shadow-sm flex items-start gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">science</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-background text-lg">Purity Test Results</h3>
+<span class="font-mono-data text-mono-data text-primary-container font-bold">99.8%</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-sm">Independent lab analysis confirms zero artificial adulterants or added sugars. Floral pollen count matches regional signature.</p>
+<!-- Mini Progress Bar -->
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 99.8%;"></div>
+</div>
+</div>
+</div>
+<!-- Metric: Chain Completeness -->
+<div class="bg-surface-container-lowest p-md rounded-lg border-l-4 border-secondary shadow-sm flex items-start gap-md relative overflow-hidden">
+<!-- Glassmorphic hover effect area -->
+<div class="absolute inset-0 bg-secondary/5 opacity-0 hover:opacity-100 transition-opacity backdrop-blur-[2px]"></div>
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 relative z-10">
+<span class="material-symbols-outlined text-secondary text-2xl" style="font-variation-settings: 'FILL' 1;">link</span>
+</div>
+<div class="flex-1 relative z-10">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-background text-lg">Chain Completeness</h3>
+<span class="font-mono-data text-mono-data text-secondary font-bold">100%</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-sm">Unbroken digital ledger from hive extraction to final bottling. 14 cryptographic signatures verified.</p>
+<!-- Mini Progress Bar -->
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+<!-- Metric: Beekeeper History -->
+<div class="bg-surface-container-lowest p-md rounded-lg border-l-4 border-tertiary-container shadow-sm flex items-start gap-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary-container text-2xl" style="font-variation-settings: 'FILL' 1;">history</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-background text-lg">Beekeeper History</h3>
+<span class="font-mono-data text-mono-data text-tertiary-container font-bold">A+</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Producer 'Highland Apiaries' maintains a 5-year flawless audit record. Certified sustainable foraging practices confirmed.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-lg flex justify-center gap-md">
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-3 rounded-lg hover:bg-primary-container/90 transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">download</span>
+                    Download Certificate
+                </button>
+<button class="border border-secondary text-secondary font-label-caps text-label-caps px-6 py-3 rounded-lg hover:bg-secondary/5 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">dataset</span>
+                    View Raw Ledger Data
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md dark:bg-inverse-surface/80 rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10" href="#">
+<span class="material-symbols-outlined mb-1">database</span>
+<span class="font-label-caps text-label-caps">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps">Verify</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+</body></html>
