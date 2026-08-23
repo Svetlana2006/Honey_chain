@@ -1,4 +1,23 @@
+# Dependencies — never commit these
 node_modules/
-.DS_Store
+packages/*/node_modules/
+
+# Build outputs
+packages/client/dist/
+packages/client/dist-ssr/
+
+# Environment files
 .env
+.env.local
+.env.*.local
+
+# Uploaded data (generated at runtime)
 data/photos/
+
+# Editor / OS junk
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,19 +1,15 @@
 {
   "name": "honey-chain",
   "version": "1.0.0",
-  "description": "Honey traceability platform for KVIC beekeepers — custom hash-chain ledger + QR verification",
+  "description": "KVIC Honey Traceability Platform — monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "multer": "^2.2.0",
-    "qrcode": "^1.5.3",
-    "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "dev:api":    "npm run dev --workspace=@honey-chain/api",
+    "dev:client": "npm run dev --workspace=@honey-chain/client",
+    "start:api":  "npm run start --workspace=@honey-chain/api",
+    "install:all": "npm install"
   }
 }
