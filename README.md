@@ -8,29 +8,31 @@ A tamper-proof honey traceability system with a custom hash-chain ledger, QR cod
 
 ## Quick Start (Localhost Development)
 
-To run the full application locally, you will need to start both the backend API server and the frontend Vite development server in **two separate terminal windows**.
+This is an **npm workspaces monorepo**. All packages are under `packages/`. Run everything from the **root directory**.
 
-### Terminal 1: Start the Backend (API Server)
+### 1. Install all dependencies (once)
 ```bash
-# Make sure you are in the root directory (Honey_chain)
-node backend/server.js
-```
-*The backend will now be running on `http://localhost:3000`.*
-
-### Terminal 2: Start the Frontend (React/Vite Server)
-```bash
-# Navigate to the client directory
-cd client
-
-# Install frontend dependencies (only needed the first time)
+# From the root Honey_chain/ directory:
 npm install
-
-# Start the development server
-npm run dev
 ```
-*The frontend will now be running on `http://localhost:5173`.*
 
-**👉 Open your browser to: [http://localhost:5173](http://localhost:5173) to view the application!**
+### 2. Start the Backend API (Terminal 1)
+```bash
+# Option A — standard
+node packages/api/server.js
+
+# Option B — with auto-reload on file changes
+npm run dev:api
+```
+*API runs on `http://localhost:3000`.*
+
+### 3. Start the Frontend (Terminal 2)
+```bash
+npm run dev:client
+```
+*Frontend runs on `http://localhost:5173`.*
+
+**👉 Open: [http://localhost:5173](http://localhost:5173)**
 
 ---
 
@@ -61,28 +63,27 @@ npm run dev
 ## File Structure
 
 ```
-Honey_chain/
-├── backend/
-│   ├── server.js          # Express API server (Port 3000)
-│   ├── db.js              # JSON file-based database
-│   ├── ledger.js          # Hash-chain logic + cryptographic verification
-│   └── routes/
-│       ├── batches.js     # API endpoints for batches and tampering
-│       └── ledger.js      # API endpoints for ledger verification
-├── client/                # React + Vite Frontend App
-│   ├── index.html         # Application entry point
-│   ├── vite.config.js     # Vite configuration (proxies /api to backend)
-│   ├── tailwind.config.js # Tailwind CSS v3 configuration (Stitch UI)
-│   └── src/
-│       ├── App.jsx        # Main React Router setup
-│       ├── global.css     # Tailwind base directives and custom animations
-│       ├── pages/         # React pages (RegisterBatch, Ledger, Verify)
-│       └── components/    # Reusable UI components (Sidebar, TopBar)
-├── data/                  # Auto-created on first run
-│   ├── batches.json       # Off-chain batch metadata
-│   ├── ledger.json        # The hash chain
-│   └── photos/            # Uploaded batch photos
-└── plan.md                # Development roadmap
+Honey_chain/                  ← Monorepo root
+├── packages/
+│   ├── api/                  ← Express backend (@honey-chain/api)
+│   │   ├── server.js         # Entry point (Port 3000)
+│   │   ├── db.js             # JSON file-based database
+│   │   ├── ledger.js         # Hash-chain + cryptographic verification
+│   │   └── routes/
+│   │       ├── batches.js    # POST/GET /api/batches, /tamper
+│   │       └── ledger.js     # GET /api/ledger, /verify
+│   └── client/               ← React + Vite Frontend (@honey-chain/client)
+│       ├── index.html
+│       ├── vite.config.js    # Proxies /api to port 3000
+│       ├── tailwind.config.js
+│       └── src/
+│           ├── App.jsx
+│           ├── global.css
+│           ├── pages/        # RegisterBatch, Ledger, Verify
+│           └── components/   # Nav, UI helpers
+├── data/                     # Auto-created — JSON storage + uploaded photos
+├── package.json              # Workspace root (declares workspaces)
+└── .gitignore
 ```
 
 ---
