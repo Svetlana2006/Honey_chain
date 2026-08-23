@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Honey Chain - Consumer Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#e8e8e7",
+                        "surface-bright": "#f9f9f8",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "on-secondary-fixed": "#002117",
+                        "primary": "#7c5800",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary": "#2b6954",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#734800",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-surface": "#2f3130",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "tertiary": "#855300",
+                        "on-surface-variant": "#514532",
+                        "inverse-primary": "#ffba20",
+                        "surface-tint": "#7c5800",
+                        "secondary-container": "#adedd3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary-fixed": "#b0f0d6",
+                        "on-background": "#1a1c1c",
+                        "background": "#f9f9f8",
+                        "surface-dim": "#dadad9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#95d3ba",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary-container": "#306d58",
+                        "on-primary-container": "#6b4c00",
+                        "on-primary-fixed": "#271900",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#ffba20",
+                        "surface-container": "#eeeeed",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffdea8",
+                        "outline-variant": "#d5c4ab",
+                        "tertiary-container": "#ffb657",
+                        "surface-container-low": "#f3f4f3",
+                        "outline": "#837560",
+                        "surface": "#f9f9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(43, 105, 84, 0.1);
+        }
+        .verified-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 105, 84, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(43, 105, 84, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 105, 84, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-sans">
+<!-- Main Content Canvas -->
+<main class="w-full max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<!-- Hero Section -->
+<header class="text-center mb-xl">
+<div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-secondary-container/20 mb-6 verified-pulse">
+<span class="material-symbols-outlined text-secondary text-5xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-xs">Verified Authentic</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Cryptographically secured on the Honey Chain</p>
+<div class="inline-flex items-center gap-xs glass-panel px-6 py-3 rounded-full shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TRUST SCORE</span>
+<span class="font-headline-sm text-headline-sm text-secondary">98/100</span>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-xl">
+<!-- Product Details Card -->
+<section class="md:col-span-7 bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-md border border-secondary/5 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-md">Product Details</h2>
+<div class="space-y-6">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-xs pb-4 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Batch Number</span>
+<span class="font-mono-data text-mono-data text-on-surface bg-surface-container-low px-3 py-1 rounded-md">#HC-2024-001</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-xs pb-4 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Beekeeper</span>
+<span class="font-body-md text-body-md text-on-surface font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary/70 text-sm">person</span>
+                            Rajesh Kumar
+                        </span>
+</div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">Origin</span>
+<span class="font-body-md text-body-md text-on-surface font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary/70 text-sm">location_on</span>
+                            Himachal Pradesh Valley
+                        </span>
+</div>
+</div>
+<div class="mt-8 flex gap-2 flex-wrap">
+<span class="bg-primary-container/10 text-tertiary-container font-label-caps text-label-caps px-3 py-1.5 rounded-full border border-primary-container/20">RAW</span>
+<span class="bg-primary-container/10 text-tertiary-container font-label-caps text-label-caps px-3 py-1.5 rounded-full border border-primary-container/20">FLORAL NOTES</span>
+<span class="bg-primary-container/10 text-tertiary-container font-label-caps text-label-caps px-3 py-1.5 rounded-full border border-primary-container/20">UNFILTERED</span>
+</div>
+</section>
+<!-- Map View Card -->
+<section class="md:col-span-5 bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-md border border-secondary/5 flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-md">Hive Location</h2>
+<div class="flex-grow rounded-lg overflow-hidden bg-surface-container-high relative min-h-[200px]">
+<img alt="Map showing hive location" class="w-full h-full object-cover absolute inset-0" data-location="Himachal Pradesh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLk9taq0qRdTACMhW__GtlshNK2Jn4Q2P2T4qu0YLwj-NsBYm20_1S9H539Z42yZ1DgHqr89h_VpyPrO-1CHDMq16-hkpuqdRtn2P83CroTbEqiIAUlQrruuzXegBQ6CjQCx5nsUzl6zb4YI9eTwLxDB0ad8jnQkM5wkYYK6iMbFkyZxVkm7YEmOiH2k-2yuVh6csSNiaezRcRaG_fp__pK06FACv2llBWzA3g6kF2NcGdFZHHHTojeA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent flex items-end p-4">
+<div class="glass-panel w-full rounded-md p-3 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">pin_drop</span>
+<div>
+<p class="font-mono-data text-mono-data text-on-surface">31.1048° N, 77.1734° E</p>
+<p class="font-label-caps text-label-caps text-secondary">VERIFIED GPS COORDINATES</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Journey Timeline -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg text-center">Journey of your Honey</h2>
+<div class="max-w-2xl mx-auto relative pl-6 md:pl-0">
+<!-- Timeline vertical line -->
+<div class="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-px bg-secondary/20 md:-ml-px"></div>
+<!-- Timeline Item 1 -->
+<div class="relative flex flex-col md:flex-row items-start md:items-center justify-between mb-lg group">
+<div class="hidden md:block w-5/12 text-right pr-md">
+<p class="font-label-caps text-label-caps text-secondary mb-1">SEP 12, 2024</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Himachal Pradesh</p>
+</div>
+<div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-surface-container-lowest shadow-sm md:-ml-2 z-10"></div>
+<div class="w-full md:w-5/12 pl-md md:pl-md glass-panel rounded-lg p-4 transition-transform group-hover:scale-[1.02]">
+<div class="md:hidden mb-2">
+<p class="font-label-caps text-label-caps text-secondary">SEP 12, 2024</p>
+</div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-on-surface-variant">agriculture</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Harvested</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Extracted carefully from ethical hives ensuring bee health.</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex flex-col md:flex-row-reverse items-start md:items-center justify-between mb-lg group">
+<div class="hidden md:block w-5/12 text-left pl-md">
+<p class="font-label-caps text-label-caps text-secondary mb-1">SEP 14, 2024</p>
+<p class="font-mono-data text-mono-data text-on-surface-variant text-xs truncate">TX: 0x8f...3a9b</p>
+</div>
+<div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-surface-container-lowest shadow-sm md:-ml-2 z-10"></div>
+<div class="w-full md:w-5/12 pl-md md:pr-md md:pl-0 md:text-right glass-panel rounded-lg p-4 transition-transform group-hover:scale-[1.02]">
+<div class="md:hidden mb-2">
+<p class="font-label-caps text-label-caps text-secondary">SEP 14, 2024</p>
+</div>
+<div class="flex items-center md:justify-end gap-3 mb-2">
+<span class="material-symbols-outlined text-on-surface-variant">schema</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Ledger Registration</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Initial batch data committed to the immutable blockchain.</p>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative flex flex-col md:flex-row items-start md:items-center justify-between mb-lg group">
+<div class="hidden md:block w-5/12 text-right pr-md">
+<p class="font-label-caps text-label-caps text-secondary mb-1">SEP 16, 2024</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Independent Lab</p>
+</div>
+<div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-surface-container-lowest shadow-sm md:-ml-2 z-10"></div>
+<div class="w-full md:w-5/12 pl-md md:pl-md glass-panel rounded-lg p-4 transition-transform group-hover:scale-[1.02]">
+<div class="md:hidden mb-2">
+<p class="font-label-caps text-label-caps text-secondary">SEP 16, 2024</p>
+</div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-on-surface-variant">science</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Quality Tested</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-3">Passed all purity and heavy metal screenings.</p>
+<div class="bg-surface-container-lowest border border-secondary/10 rounded px-3 py-2 inline-flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">PURITY SCORE</span>
+<span class="font-mono-data text-mono-data text-secondary font-bold">99.8%</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 4 -->
+<div class="relative flex flex-col md:flex-row-reverse items-start md:items-center justify-between group">
+<div class="hidden md:block w-5/12 text-left pl-md">
+<p class="font-label-caps text-label-caps text-secondary mb-1">SEP 18, 2024</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Facility A</p>
+</div>
+<div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-surface-container-lowest shadow-sm md:-ml-2 z-10"></div>
+<div class="w-full md:w-5/12 pl-md md:pr-md md:pl-0 md:text-right glass-panel rounded-lg p-4 transition-transform group-hover:scale-[1.02]">
+<div class="md:hidden mb-2">
+<p class="font-label-caps text-label-caps text-secondary">SEP 18, 2024</p>
+</div>
+<div class="flex items-center md:justify-end gap-3 mb-2">
+<span class="material-symbols-outlined text-on-surface-variant">qr_code_2</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Bottled &amp; QR Sealed</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Final packaging and cryptographic QR code generation.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<div class="text-center pb-xl">
+<button class="bg-primary-container text-on-secondary-fixed hover:bg-primary-container/90 transition-colors px-8 py-4 rounded-full font-label-caps text-label-caps inline-flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                View Ledger Proof
+            </button>
+<p class="mt-4 font-mono-data text-mono-data text-on-surface-variant text-xs opacity-70">
+                Verifiable on Polygon Network
+            </p>
+</div>
+</main>
+</body></html>

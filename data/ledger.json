@@ -1,0 +1,17 @@
+[
+  {
+    "blockIndex": 0,
+    "batchId": "f633f660-95c8-4d4c-85ed-6c60e49a1ba7",
+    "data": {
+      "quantity": 78.7,
+      "location": "27, 42",
+      "harvestDate": "2026-08-23",
+      "beekeeperName": "Hey",
+      "hiveId": "HIVE-UP-42",
+      "purityScore": 86
+    },
+    "timestamp": "2026-08-23T04:24:51.665Z",
+    "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "8068cd59744649785eac0edefe13acb239f217b2ba39165059a8c3deaad312cc"
+  }
+]

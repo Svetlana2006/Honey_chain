@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tamper-Detection Simulation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#e8e8e7",
+                        "surface-bright": "#f9f9f8",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "on-secondary-fixed": "#002117",
+                        "primary": "#7c5800",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary": "#2b6954",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#734800",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-surface": "#2f3130",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "tertiary": "#855300",
+                        "on-surface-variant": "#514532",
+                        "inverse-primary": "#ffba20",
+                        "surface-tint": "#7c5800",
+                        "secondary-container": "#adedd3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary-fixed": "#b0f0d6",
+                        "on-background": "#1a1c1c",
+                        "background": "#f9f9f8",
+                        "surface-dim": "#dadad9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#95d3ba",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary-container": "#306d58",
+                        "on-primary-container": "#6b4c00",
+                        "on-primary-fixed": "#271900",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#ffba20",
+                        "surface-container": "#eeeeed",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffdea8",
+                        "outline-variant": "#d5c4ab",
+                        "tertiary-container": "#ffb657",
+                        "surface-container-low": "#f3f4f3",
+                        "outline": "#837560",
+                        "surface": "#f9f9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(43, 105, 84, 0.1);
+        }
+        .tampered-panel {
+            background: rgba(255, 218, 214, 0.7); /* error-container */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(186, 26, 26, 0.3); /* error */
+            transition: all 0.3s ease;
+        }
+        .chain-link {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 48px;
+            background-color: #e2e2e2; /* surface-variant */
+            z-index: 0;
+        }
+        .chain-link.broken {
+            background-color: #ba1a1a; /* error */
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(43, 105, 84, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(43, 105, 84, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(43, 105, 84, 0); }
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(186, 26, 26, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+        }
+        .status-dot-secure {
+            background-color: #2b6954; /* secondary */
+            animation: pulse-green 2s infinite;
+        }
+        .status-dot-breach {
+            background-color: #ba1a1a; /* error */
+            animation: pulse-red 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-screen sticky top-0 w-64 bg-surface-container-low dark:bg-surface-container-lowest border-r border-secondary/10 p-4 shrink-0 z-40">
+<div class="flex items-center gap-4 mb-xl">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="hive">hive</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Honey Chain</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Blockchain Verification</p>
+</div>
+</div>
+<button class="w-full py-3 px-4 rounded-full bg-primary-container text-on-primary-container font-body-md text-body-md font-semibold flex items-center justify-center gap-2 mb-8 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+            Register Batch
+        </button>
+<ul class="flex-1 space-y-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                    Batches
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                    Ledger
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Analytics
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-8 border-t border-secondary/10 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 transition-all font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+                Role Switcher
+            </a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<header class="lg:hidden fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile py-4 bg-surface/70 backdrop-blur-xl border-b border-secondary/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="hive">hive</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Honey Chain</span>
+</div>
+<button class="text-primary font-body-md text-body-md font-medium px-4 py-2 rounded-full border border-primary hover:bg-primary-container/10 transition-colors">
+            Verify Batch
+        </button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop mt-[72px] lg:mt-0 max-w-[1400px] mx-auto w-full relative">
+<!-- Header Section -->
+<header class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<p class="font-label-caps text-label-caps text-secondary mb-2">Admin Demo Panel</p>
+<h2 class="font-display-lg text-display-lg text-on-surface">Tamper-Detection Simulation</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-2xl">
+                    Demonstrating the immutable nature of the ledger. Edit a historical record to observe the cryptographic cascade failure that prevents tampering.
+                </p>
+</div>
+<!-- Chain Status Widget -->
+<div class="glass-panel p-4 rounded-xl flex items-center gap-4 min-w-[240px] shadow-sm transition-all duration-300" id="statusWidget">
+<div class="w-4 h-4 rounded-full status-dot-secure" id="statusDot"></div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Chain Status</p>
+<p class="font-headline-sm text-headline-sm text-secondary font-bold" id="statusText">Secure</p>
+</div>
+</div>
+</header>
+<!-- Ledger Visualization (Bento Grid Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter relative pb-32">
+<!-- Main Ledger Column -->
+<div class="lg:col-span-8 flex flex-col items-center relative">
+<!-- Block 1 (Genesis) -->
+<div class="w-full max-w-2xl glass-panel rounded-2xl p-6 relative z-10 border-l-4 border-l-secondary">
+<div class="flex justify-between items-center border-b border-surface-variant pb-4 mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="inventory_2">inventory_2</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Block #1204</h3>
+</div>
+<span class="font-mono-data text-mono-data text-on-surface-variant bg-surface-container px-3 py-1 rounded-md">Timestamp: 2023-10-25 08:14 UTC</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Batch ID</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">HC-2023-A492</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Origin</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Blue Mountains, AU</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Nectar Source</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Manuka (Leptospermum scoparium)</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Purity Score</p>
+<p class="font-body-md text-body-md text-secondary font-bold">99.8%</p>
+</div>
+</div>
+<div class="bg-surface p-3 rounded-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Previous Hash</p>
+<p class="font-mono-data text-mono-data text-on-surface text-xs truncate">00000000000000000004f2...3a2b</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-3 mb-1">Block Hash</p>
+<p class="font-mono-data text-mono-data text-secondary text-xs truncate font-bold">8f4c3a9d2b1e7f6a5c4d3e2f1a0b9c8d</p>
+</div>
+</div>
+<div class="chain-link" style="top: 100%; height: 64px;"></div>
+<!-- Block 2 (Target) -->
+<div class="w-full max-w-2xl glass-panel rounded-2xl p-6 relative z-10 mt-[64px] border-l-4 border-l-secondary transition-all duration-300" id="block2">
+<div class="flex justify-between items-center border-b border-surface-variant pb-4 mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="precision_manufacturing" id="icon2">precision_manufacturing</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Block #1205</h3>
+</div>
+<span class="font-mono-data text-mono-data text-on-surface-variant bg-surface-container px-3 py-1 rounded-md">Timestamp: 2023-10-26 14:30 UTC</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Action</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Quality Testing</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Facility</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Sydney Labs Inc.</p>
+</div>
+<div class="col-span-2">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Test Result (NPA Rating)</p>
+<div class="flex items-center gap-4">
+<p class="font-body-md text-body-md text-on-surface font-medium" id="npaValue">15+</p>
+<button class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-body-md text-body-md font-bold shadow-sm hover:scale-105 transition-transform flex items-center gap-2" id="editBtn" onclick="simulateTamper()">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                                    Edit Record
+                                </button>
+</div>
+</div>
+</div>
+<div class="bg-surface p-3 rounded-lg transition-colors duration-300" id="hashBox2">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Previous Hash (Matches Block #1204)</p>
+<p class="font-mono-data text-mono-data text-on-surface text-xs truncate">8f4c3a9d2b1e7f6a5c4d3e2f1a0b9c8d</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-3 mb-1">Block Hash</p>
+<p class="font-mono-data text-mono-data text-secondary text-xs truncate font-bold" id="hashVal2">d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9</p>
+</div>
+<div class="hidden mt-4 bg-error-container text-on-error-container p-3 rounded-lg font-mono-data text-mono-data flex items-center gap-2" id="warning2">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+                        Record modified post-verification. Hash recalculated.
+                    </div>
+</div>
+<div class="chain-link" id="chainLink2" style="top: calc(100% - 64px); height: 64px; margin-top: 64px;"></div>
+<!-- Block 3 (Cascading Failure) -->
+<div class="w-full max-w-2xl glass-panel rounded-2xl p-6 relative z-10 mt-[64px] border-l-4 border-l-secondary transition-all duration-300" id="block3">
+<div class="flex justify-between items-center border-b border-surface-variant pb-4 mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping" id="icon3">local_shipping</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Block #1206</h3>
+</div>
+<span class="font-mono-data text-mono-data text-on-surface-variant bg-surface-container px-3 py-1 rounded-md">Timestamp: 2023-10-27 09:15 UTC</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Action</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Export Logistics</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Destination</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Port of Tokyo</p>
+</div>
+</div>
+<div class="bg-surface p-3 rounded-lg transition-colors duration-300" id="hashBox3">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Previous Hash (Stored)</p>
+<p class="font-mono-data text-mono-data text-on-surface text-xs truncate line-through opacity-70">d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9</p>
+<p class="font-mono-data text-mono-data text-on-surface text-xs truncate hidden text-error font-bold mt-1" id="actualPrevHash">EXPECTED: e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-3 mb-1">Block Hash</p>
+<p class="font-mono-data text-mono-data text-secondary text-xs truncate font-bold">1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d</p>
+</div>
+<div class="hidden mt-4 bg-error-container text-on-error-container p-3 rounded-lg font-mono-data text-mono-data flex items-center gap-2" id="warning3">
+<span class="material-symbols-outlined" data-icon="gpp_bad">gpp_bad</span>
+                        INVALID HASH LINK: Previous block hash mismatch.
+                    </div>
+</div>
+</div>
+<!-- Contextual Sidebar -->
+<aside class="lg:col-span-4 space-y-6">
+<!-- Info Card -->
+<div class="glass-panel p-6 rounded-2xl shadow-sm">
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+                        How it works
+                    </h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                        Each block contains a cryptographic hash of the previous block's data. 
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Modifying a historical record (like increasing an NPA rating artificially) alters its hash. This breaks the link to all subsequent blocks, immediately flagging the chain as compromised.
+                    </p>
+</div>
+<!-- Abstract Decorative Graphic -->
+<div class="bg-surface-container-high h-64 rounded-2xl overflow-hidden relative" data-alt="Abstract 3D rendering of interlocking glass cubes connected by thin glowing green lines representing blockchain nodes, set against a pristine white studio background with soft studio lighting. Minimalist corporate tech aesthetic.">
+<div class="bg-cover bg-center w-full h-full opacity-60 mix-blend-multiply" data-alt="Abstract 3D rendering of interlocking glass cubes connected by thin glowing green lines representing blockchain nodes, set against a pristine white studio background with soft studio lighting. Minimalist corporate tech aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFnpR_YMMkyNchSI4SvOpZYNIHUSEjg3nXdOOyfdK97ZM31Hfk-Rx7zVGNSTWXmAd5axLaXk1YY88Mrzi8Oz1zy6OgME5XtGmgd-wajdGW_SIY1iY079ydAzjLT2Zf3OcTspEj14rQcG1pWy_ZDTSEN1P7Nuvr1vpzDbyu0MuvIuKIHhdYg8QuXNCZmAixXvhf0q6awku6ZgA-kI4v0XormoHYchTila7w321Sckc-6GuACr5qTZk--w')"></div>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md border-t border-secondary/10 shadow-[0_-4px_12px_rgba(0,0,0,0.04)] rounded-t-xl pb-6">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:bg-primary-container/10" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-label-caps text-label-caps mt-1">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps mt-1">Verify</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary-container/10 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        function simulateTamper() {
+            // Update Block 2 (The tampered block)
+            const block2 = document.getElementById('block2');
+            block2.classList.remove('border-l-secondary');
+            block2.classList.add('tampered-panel', 'border-l-error');
+            
+            document.getElementById('npaValue').textContent = "20+ (TAMPERED)";
+            document.getElementById('npaValue').classList.add('text-error', 'font-bold');
+            
+            document.getElementById('editBtn').classList.add('hidden');
+            
+            document.getElementById('hashBox2').classList.remove('bg-surface');
+            document.getElementById('hashBox2').classList.add('bg-error/10');
+            
+            document.getElementById('hashVal2').textContent = "e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4"; // New bad hash
+            document.getElementById('hashVal2').classList.replace('text-secondary', 'text-error');
+            
+            document.getElementById('icon2').classList.replace('text-secondary', 'text-error');
+            document.getElementById('warning2').classList.remove('hidden');
+
+            // Break the chain link visually
+            document.getElementById('chainLink2').classList.add('broken');
+
+            // Update Block 3 (Cascading failure)
+            setTimeout(() => {
+                const block3 = document.getElementById('block3');
+                block3.classList.remove('border-l-secondary');
+                block3.classList.add('tampered-panel', 'border-l-error');
+
+                document.getElementById('hashBox3').classList.remove('bg-surface');
+                document.getElementById('hashBox3').classList.add('bg-error/10');
+                
+                document.getElementById('actualPrevHash').classList.remove('hidden');
+                
+                document.getElementById('icon3').classList.replace('text-secondary', 'text-error');
+                document.getElementById('warning3').classList.remove('hidden');
+
+                // Update Status Widget
+                const statusWidget = document.getElementById('statusWidget');
+                statusWidget.classList.add('bg-error-container', 'border-error/30');
+                
+                const statusDot = document.getElementById('statusDot');
+                statusDot.classList.remove('status-dot-secure');
+                statusDot.classList.add('status-dot-breach');
+                
+                const statusText = document.getElementById('statusText');
+                statusText.textContent = "Breach Detected";
+                statusText.classList.replace('text-secondary', 'text-error');
+                
+            }, 600); // Slight delay for dramatic cascade effect
+        }
+    </script>
+</body></html>

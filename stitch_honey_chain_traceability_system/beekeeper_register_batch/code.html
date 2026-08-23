@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Honey Chain - Beekeeper Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#ffb800",
+                      "surface-container-high": "#e8e8e7",
+                      "surface-bright": "#f9f9f8",
+                      "surface-variant": "#e2e2e2",
+                      "on-secondary-fixed-variant": "#0b513d",
+                      "on-secondary-fixed": "#002117",
+                      "primary": "#7c5800",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f1f1f0",
+                      "on-tertiary-fixed": "#2a1700",
+                      "secondary": "#2b6954",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#734800",
+                      "surface-container-highest": "#e2e2e2",
+                      "inverse-surface": "#2f3130",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#5e4200",
+                      "tertiary": "#855300",
+                      "on-surface-variant": "#514532",
+                      "inverse-primary": "#ffba20",
+                      "surface-tint": "#7c5800",
+                      "secondary-container": "#adedd3",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "secondary-fixed": "#b0f0d6",
+                      "on-background": "#1a1c1c",
+                      "background": "#f9f9f8",
+                      "surface-dim": "#dadad9",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#95d3ba",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-secondary-container": "#306d58",
+                      "on-primary-container": "#6b4c00",
+                      "on-primary-fixed": "#271900",
+                      "on-surface": "#1a1c1c",
+                      "primary-fixed-dim": "#ffba20",
+                      "surface-container": "#eeeeed",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#ffdea8",
+                      "outline-variant": "#d5c4ab",
+                      "tertiary-container": "#ffb657",
+                      "surface-container-low": "#f3f4f3",
+                      "outline": "#837560",
+                      "surface": "#f9f9f8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "gutter": "24px",
+                      "xs": "4px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px",
+                      "base": "8px",
+                      "lg": "48px",
+                      "xl": "80px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-md": ["Inter"],
+                      "mono-data": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "mono-data": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(43, 105, 84, 0.1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+        .verified-border {
+            border-left: 4px solid #2b6954;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden bg-surface/70 backdrop-blur-xl border-b border-secondary/10 shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile py-4">
+<div class="font-headline-sm text-headline-sm font-bold text-primary">
+            Honey Chain
+        </div>
+<button class="text-primary p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-screen sticky top-0 p-4 bg-surface-container-low border-r border-secondary/10 w-64 shrink-0">
+<div class="mb-8 px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">hive</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-sm font-bold text-primary">Honey Chain</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Blockchain Verification</p>
+</div>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold font-label-caps text-label-caps transition-transform scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                    Batches
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg font-medium font-label-caps text-label-caps hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                    Ledger
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg font-medium font-label-caps text-label-caps hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Analytics
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg font-medium font-label-caps text-label-caps hover:bg-primary-container/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-4 border-t border-secondary/10">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold py-3 rounded-full hover:opacity-90 transition-opacity">
+                Register Batch
+            </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow p-margin-mobile md:p-margin-desktop mt-20 md:mt-0 pt-lg md:pt-margin-desktop bg-background overflow-y-auto">
+<div class="max-w-7xl mx-auto space-y-xl">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-sm">
+<div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary font-bold">Register New Batch</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Log your harvest on the immutable ledger.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Registration Form (Bento Grid Style) -->
+<div class="lg:col-span-8 glass-card rounded-xl p-md">
+<form class="space-y-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Location -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border-b border-secondary/20 focus:border-secondary focus:outline-none focus:ring-0 rounded-t-DEFAULT transition-colors font-body-md text-body-md text-on-surface" placeholder="Apiary Site" type="text"/>
+</div>
+</div>
+<!-- Harvest Date -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Harvest Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border-b border-secondary/20 focus:border-secondary focus:outline-none focus:ring-0 rounded-t-DEFAULT transition-colors font-body-md text-body-md text-on-surface" type="date"/>
+</div>
+</div>
+<!-- Hive ID -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Hive ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">tag</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border-b border-secondary/20 focus:border-secondary focus:outline-none focus:ring-0 rounded-t-DEFAULT transition-colors font-mono-data text-mono-data text-on-surface" placeholder="e.g. H-402" type="text"/>
+</div>
+</div>
+<!-- Quantity -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Quantity (kg)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">scale</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border-b border-secondary/20 focus:border-secondary focus:outline-none focus:ring-0 rounded-t-DEFAULT transition-colors font-mono-data text-mono-data text-on-surface" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Photo Upload -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Harvest Evidence</label>
+<div class="border-2 border-dashed border-secondary/20 rounded-lg p-md flex flex-col items-center justify-center text-center bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-primary/50 group-hover:text-primary mb-2 transition-colors">cloud_upload</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Drag and drop photos or click to browse</p>
+<p class="font-label-caps text-label-caps text-outline mt-1">JPEG, PNG up to 10MB</p>
+</div>
+</div>
+<!-- Notes / Floral Chips -->
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Floral Notes</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps border border-primary/20 hover:bg-primary/20 transition-colors" type="button">Wildflower</button>
+<button class="px-3 py-1.5 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps border border-primary/20 hover:bg-primary/20 transition-colors" type="button">Clover</button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps border border-transparent hover:bg-surface-variant transition-colors" type="button">+ Add Note</button>
+</div>
+</div>
+<div class="pt-sm flex justify-end">
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity shadow-sm" type="button">
+<span class="material-symbols-outlined">link</span>
+                                Write to Blockchain
+                            </button>
+</div>
+</form>
+</div>
+<!-- Side Panel / Ledger Preview -->
+<div class="lg:col-span-4 space-y-gutter">
+<div class="glass-card rounded-xl p-md">
+<div class="flex items-center justify-between mb-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Recent Batches</h3>
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+</div>
+<div class="space-y-4">
+<!-- Batch Item Verified -->
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-secondary/10 verified-border flex justify-between items-center shadow-sm">
+<div>
+<div class="font-mono-data text-mono-data text-on-surface">#B-8902</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1">Oct 12, 2023</div>
+</div>
+<div class="flex items-center gap-1 text-secondary bg-secondary-container px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="font-label-caps text-label-caps">Verified</span>
+</div>
+</div>
+<!-- Batch Item Pending -->
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-secondary/10 border-l-4 border-l-primary-container flex justify-between items-center shadow-sm">
+<div>
+<div class="font-mono-data text-mono-data text-on-surface">#B-8903</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1">Oct 15, 2023</div>
+</div>
+<div class="flex items-center gap-1 text-primary bg-primary-container/20 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+<span class="font-label-caps text-label-caps">Pending</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 text-secondary font-label-caps text-label-caps py-2 hover:bg-surface-variant/50 rounded-lg transition-colors border border-secondary/20">
+                            View Full Ledger
+                        </button>
+</div>
+<!-- Ambient Image Area -->
+<div class="rounded-xl overflow-hidden shadow-sm h-48 relative">
+<img class="object-cover w-full h-full absolute inset-0" data-alt="A macro shot of a wooden honeycomb frame dripping with thick, golden amber honey, illuminated by warm, natural sunlight in a minimalist apiary setting. The light catches the intricate hexagonal structures, highlighting the organic purity and premium quality of the agricultural product. High-key lighting, modern clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm62Z_CkJJiC-dRgOEr5CY3Fwnt1c8AMyLh_gl8PLg2zu-RjWHs74xfS-FQzf9CTXgMWB7sZAhxOiPBgmSteqSM2025rnOoJ1aBwWPcX_ZEHtMsPPILU_oNost3YBP9NQ-NJKGCrlWrJsd0uWNlzqQNFvRsN-cMAulFFZWDUlzcwx7n3kO_d4IheN5p507A1wwQnNUqLGwdhfiHI2vH4Zc7NKaDQa17wXmYRl6bz5Hbfv3nemkkdqcUQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 to-transparent flex items-end p-4">
+<p class="font-label-caps text-label-caps text-on-primary">Apiary Site Alpha - Online</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md border-t border-secondary/10 shadow-[0_-4px_12px_rgba(0,0,0,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-label-caps text-label-caps-mobile">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps-mobile">Verify</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps-mobile">Profile</span>
+</a>
+</nav>
+</body></html>
