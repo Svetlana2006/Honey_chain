@@ -1,38 +1,35 @@
 # 🍯 Honey Chain
 
-> KVIC Honey Traceability Platform — Tier 1 MVP
+> KVIC Honey Traceability Platform — Turborepo Monorepo
 
-A tamper-proof honey traceability system with a custom hash-chain ledger, QR code generation, and a live tamper-detection demo built with **React (Vite), Tailwind CSS v3, and an Express API Backend.**
+A tamper-proof honey traceability system with a custom hash-chain ledger, QR code generation, and a live tamper-detection demo. Built with **React (Vite)**, **Express**, **Tailwind CSS v3**, and orchestrated by **Turborepo**.
 
 ---
 
-## Quick Start (Localhost Development)
+## Quick Start
 
-This is an **npm workspaces monorepo**. All packages are under `packages/`. Run everything from the **root directory**.
-
-### 1. Install all dependencies (once)
 ```bash
-# From the root Honey_chain/ directory:
+# 1. Clone and install (installs ALL workspace dependencies from root)
 npm install
-```
 
-### 2. Start the Backend API (Terminal 1)
-```bash
-# Option A — standard
-node packages/api/server.js
-
-# Option B — with auto-reload on file changes
-npm run dev:api
+# 2. Run everything in parallel — one command, one terminal
+npm run dev
 ```
-*API runs on `http://localhost:3000`.*
-
-### 3. Start the Frontend (Terminal 2)
-```bash
-npm run dev:client
-```
-*Frontend runs on `http://localhost:5173`.*
 
 **👉 Open: [http://localhost:5173](http://localhost:5173)**
+
+> Turborepo starts the API (`localhost:3000`) and the Vite frontend (`localhost:5173`) in parallel automatically.
+
+---
+
+## Individual App Commands
+
+```bash
+npm run dev:api       # Start only the Express API (with nodemon)
+npm run dev:client    # Start only the Vite frontend
+npm run build         # Build all apps for production
+npm run lint          # Lint all apps
+```
 
 ---
 
@@ -40,49 +37,48 @@ npm run dev:client
 
 | Route | Purpose |
 |-----|---------|
-| `http://localhost:5173/` | **Beekeeper registration** — fill out the batch form and generate a QR code instantly. |
-| `http://localhost:5173/ledger` | **Live Ledger & Tamper Demo** — view the full cryptographic chain; use the admin panel to secretly tamper with a record and watch the chain visibly break. |
-| `http://localhost:5173/verify?id=<batchId>` | **Consumer Verification** — scan a QR code to view the full batch journey, purity score, trust grade, and chain integrity status. |
+| `http://localhost:5173/` | **Beekeeper Registration** — fill out the batch form and get a QR code instantly. |
+| `http://localhost:5173/ledger` | **Live Ledger & Tamper Demo** — view the cryptographic chain; use the admin panel to secretly tamper with a record and watch the chain visibly break. |
+| `http://localhost:5173/verify?id=<batchId>` | **Consumer Verification** — view full batch journey, purity score, trust grade, and chain integrity status. |
 
 ---
 
 ## Demo Flow (for judges)
 
-1. **Register a batch** on the home page (`http://localhost:5173/`) → a QR is generated.
-2. **Open the Ledger** via the sidebar (`http://localhost:5173/ledger`) → see the block appear on the chain with a green "✅ Secure" status.
-3. **Use the Tamper Panel** (on the right side of the Ledger):
-   - Select the batch you just registered.
-   - Choose a field to edit (e.g., `quantity`).
-   - Enter a fake value (e.g., `999`).
-   - Click **Execute Tamper**.
-4. The page re-verifies immediately → the block turns **red**, the chain line visibly breaks, and the system explicitly logs the hash mismatch! 🚨
-5. **Navigate to the Verification page** → the consumer page will now show a massive red **"WARNING: Tampering Detected!"** banner, preventing consumers from trusting the altered data.
+1. **Register a batch** on the home page → a QR is generated.
+2. **Open the Ledger** → see the block with a green ✅ "Secure" status.
+3. **Use the Tamper Panel** (right side of Ledger page):
+   - Select the batch → choose a field → enter a fake value → click **Execute Tamper**.
+4. The chain **visibly breaks** → block turns red, hash mismatch is logged. 🚨
+5. **Open the Verification page** → shows a red **"WARNING: Tampering Detected!"** banner.
 
 ---
 
-## File Structure
+## Monorepo Structure
 
 ```
-Honey_chain/                  ← Monorepo root
-├── packages/
-│   ├── api/                  ← Express backend (@honey-chain/api)
-│   │   ├── server.js         # Entry point (Port 3000)
-│   │   ├── db.js             # JSON file-based database
-│   │   ├── ledger.js         # Hash-chain + cryptographic verification
+Honey_chain/                   ← Turborepo workspace root
+├── apps/
+│   ├── api/                   ← @honey-chain/api (Express, Port 3000)
+│   │   ├── server.js          # Entry point
+│   │   ├── db.js              # JSON file-based storage
+│   │   ├── ledger.js          # Hash-chain + cryptographic verification
 │   │   └── routes/
-│   │       ├── batches.js    # POST/GET /api/batches, /tamper
-│   │       └── ledger.js     # GET /api/ledger, /verify
-│   └── client/               ← React + Vite Frontend (@honey-chain/client)
+│   │       ├── batches.js     # POST/GET /api/batches, /tamper
+│   │       └── ledger.js      # GET /api/ledger, /verify
+│   └── client/                ← @honey-chain/client (React + Vite, Port 5173)
 │       ├── index.html
-│       ├── vite.config.js    # Proxies /api to port 3000
+│       ├── vite.config.js     # Proxies /api → port 3000
 │       ├── tailwind.config.js
 │       └── src/
 │           ├── App.jsx
 │           ├── global.css
-│           ├── pages/        # RegisterBatch, Ledger, Verify
-│           └── components/   # Nav, UI helpers
-├── data/                     # Auto-created — JSON storage + uploaded photos
-├── package.json              # Workspace root (declares workspaces)
+│           ├── pages/         # RegisterBatch, Ledger, Verify
+│           └── components/    # Nav, UI helpers
+├── packages/                  ← Shared libraries (future: @honey-chain/shared)
+├── data/                      ← Runtime JSON storage (auto-created)
+├── turbo.json                 ← Turborepo task pipeline
+├── package.json               ← Workspace root + scripts
 └── .gitignore
 ```
 
@@ -93,31 +89,24 @@ Honey_chain/                  ← Monorepo root
 ### Batch Endpoints
 | Method | Path | Description |
 |--------|------|-------------|
-| `POST` | `/api/batches` | Register new batch (multipart form with optional photo) |
+| `POST` | `/api/batches` | Register new batch (multipart form + optional photo) |
 | `GET`  | `/api/batches` | List all batches |
 | `GET`  | `/api/batches/:id` | Get one batch + its ledger block |
-| `POST` | `/api/batches/:id/tamper` | **Demo only** — edit a field without updating the ledger |
+| `POST` | `/api/batches/:id/tamper` | **Demo only** — tamper a field without updating the ledger |
 
 ### Ledger Endpoints
 | Method | Path | Description |
 |--------|------|-------------|
-| `GET` | `/api/ledger` | Full raw chain (all blocks) |
-| `GET` | `/api/ledger/verify` | Run integrity check — returns per-block valid/invalid status |
+| `GET` | `/api/ledger` | Full raw chain |
+| `GET` | `/api/ledger/verify` | Per-block integrity check |
 
 ---
 
 ## How the Hash Chain Works
 
-Each block stores:
-- `batchId` — references the original batch.
-- `data` — core fields committed to the chain (quantity, location, date, beekeeper name, hive ID, purity score).
-- `timestamp`
-- `previousHash` — links to the previous block.
-- `hash` — SHA-256 cryptographic digest of all the above.
+Each block commits: `batchId`, `data` (quantity, location, date, beekeeper, hive ID, purity score), `timestamp`, `previousHash`, and `hash` (SHA-256 of all the above).
 
-**Tamper detection runs three checks:**
-1. Re-hash the block and compare → catches anyone editing `ledger.json` directly.
-2. Check `previousHash` linkage → catches block deletion/insertion.
-3. Cross-compare live DB record vs committed chain data → **this is what the demo triggers.**
-
-The tamper endpoint writes only to `batches.json` (the "database"), not to `ledger.json` (the "chain") — exactly simulating what a bad actor would do if they hacked the main database!
+**Three-layer tamper detection:**
+1. Re-hash each block → catches direct edits to `ledger.json`
+2. Validate `previousHash` chain linkage → catches block insertion/deletion
+3. Cross-compare live DB vs committed data → **this is what the demo triggers**
