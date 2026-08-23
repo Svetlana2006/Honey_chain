@@ -1,15 +1,22 @@
 {
   "name": "honey-chain",
   "version": "1.0.0",
-  "description": "KVIC Honey Traceability Platform — monorepo",
+  "description": "KVIC Honey Traceability Platform — Turborepo monorepo",
   "private": true,
   "workspaces": [
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "dev:api":    "npm run dev --workspace=@honey-chain/api",
-    "dev:client": "npm run dev --workspace=@honey-chain/client",
-    "start:api":  "npm run start --workspace=@honey-chain/api",
-    "install:all": "npm install"
-  }
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev:api": "turbo run dev --filter=@honey-chain/api",
+    "dev:client": "turbo run dev --filter=@honey-chain/client",
+    "start:api": "turbo run start --filter=@honey-chain/api"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  },
+  "packageManager": "npm@10.9.3"
 }
