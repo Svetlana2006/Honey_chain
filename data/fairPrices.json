@@ -1,0 +1,23 @@
+[
+  {
+    "batchId": "f633f660-95c8-4d4c-85ed-6c60e49a1ba7",
+    "marketReference": "Indian multiflora wholesale",
+    "basePricePerKg": 200,
+    "floralRarity": 1.0,
+    "marketRange": "₹180 - ₹220 / kg"
+  },
+  {
+    "batchId": "5e2572fa-bebe-4ac3-b3b8-6163c37eb9ae",
+    "marketReference": "Indian litchi monofloral wholesale",
+    "basePricePerKg": 400,
+    "floralRarity": 1.35,
+    "marketRange": "₹380 - ₹420 / kg"
+  },
+  {
+    "batchId": "799016e8-6326-45d2-b752-79202394882e",
+    "marketReference": "Indian sunflower monofloral wholesale",
+    "basePricePerKg": 300,
+    "floralRarity": 1.15,
+    "marketRange": "₹280 - ₹340 / kg"
+  }
+]

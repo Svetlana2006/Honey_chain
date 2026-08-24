@@ -1,0 +1,35 @@
+[
+  {
+    "batchId": "f633f660-95c8-4d4c-85ed-6c60e49a1ba7",
+    "purityScore": 86,
+    "beekeeperHistory": {
+      "score": 82,
+      "grade": "B",
+      "yearsActive": 2,
+      "auditsPassed": 4,
+      "sustainablePractices": true
+    }
+  },
+  {
+    "batchId": "5e2572fa-bebe-4ac3-b3b8-6163c37eb9ae",
+    "purityScore": 99,
+    "beekeeperHistory": {
+      "score": 82,
+      "grade": "B",
+      "yearsActive": 2,
+      "auditsPassed": 4,
+      "sustainablePractices": true
+    }
+  },
+  {
+    "batchId": "799016e8-6326-45d2-b752-79202394882e",
+    "purityScore": 96,
+    "beekeeperHistory": {
+      "score": 94,
+      "grade": "A+",
+      "yearsActive": 5,
+      "auditsPassed": 10,
+      "sustainablePractices": true
+    }
+  }
+]

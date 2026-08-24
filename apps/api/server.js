@@ -16,6 +16,8 @@ const path    = require('path');
 
 const batchRoutes  = require('./routes/batches');
 const ledgerRoutes = require('./routes/ledger');
+const trustScoreRoutes = require('./routes/trustScore');
+const fairPriceRoutes = require('./routes/fairPrice');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +35,8 @@ app.use('/photos', express.static(path.join(__dirname, '..', '..', 'data', 'phot
 // ---- API Routes ----
 app.use('/api/batches', batchRoutes);
 app.use('/api/ledger',  ledgerRoutes);
+app.use('/api/trust-score', trustScoreRoutes);
+app.use('/api/fair-price', fairPriceRoutes);
 
 // ---- API Fallback ----
 app.all('*', (req, res) => {
