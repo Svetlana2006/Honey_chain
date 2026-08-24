@@ -28,5 +28,20 @@
     "timestamp": "2026-08-23T14:06:44.237Z",
     "previousHash": "8068cd59744649785eac0edefe13acb239f217b2ba39165059a8c3deaad312cc",
     "hash": "f61289b0807c6e55c28ea23aa54eb2e78650e01d87d28cc35d6a27f368c4b9f9"
+  },
+  {
+    "blockIndex": 2,
+    "batchId": "799016e8-6326-45d2-b752-79202394882e",
+    "data": {
+      "quantity": 50,
+      "location": "34N, 49W",
+      "harvestDate": "2026-08-24",
+      "beekeeperName": "Ravina",
+      "hiveId": "HIVE-HR-82",
+      "purityScore": 96
+    },
+    "timestamp": "2026-08-24T05:46:36.266Z",
+    "previousHash": "f61289b0807c6e55c28ea23aa54eb2e78650e01d87d28cc35d6a27f368c4b9f9",
+    "hash": "3ddea233720c78b80208f8de1a1e258ca8e96474ce33f3b0a7dbe59190ed1cf3"
   }
 ]

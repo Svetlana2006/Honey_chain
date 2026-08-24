@@ -26,5 +26,19 @@
     "purityScore": 99,
     "photoFilename": null,
     "registeredAt": "2026-08-23T14:06:44.235Z"
+  },
+  {
+    "id": "799016e8-6326-45d2-b752-79202394882e",
+    "beekeeperName": "Ravina",
+    "beekeeperVillage": "Faridabad",
+    "hiveId": "HIVE-HR-82",
+    "location": "34N, 49W",
+    "harvestDate": "2026-08-24",
+    "quantity": 50,
+    "floralSource": "Sunflower",
+    "notes": "",
+    "purityScore": 96,
+    "photoFilename": "1787550396250.jpg",
+    "registeredAt": "2026-08-24T05:46:36.263Z"
   }
 ]
