@@ -31,5 +31,16 @@
       "auditsPassed": 10,
       "sustainablePractices": true
     }
+  },
+  {
+    "batchId": "1521b778-54bd-41e7-9884-b44599f4a29b",
+    "purityScore": 89,
+    "beekeeperHistory": {
+      "score": 78,
+      "grade": "B",
+      "yearsActive": 3,
+      "auditsPassed": 6,
+      "sustainablePractices": true
+    }
   }
 ]

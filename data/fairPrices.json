@@ -19,5 +19,12 @@
     "basePricePerKg": 300,
     "floralRarity": 1.15,
     "marketRange": "₹280 - ₹340 / kg"
+  },
+  {
+    "batchId": "1521b778-54bd-41e7-9884-b44599f4a29b",
+    "marketReference": "Indian mustard (sarson) monofloral wholesale",
+    "basePricePerKg": 350,
+    "floralRarity": 1.2,
+    "marketRange": "₹320 - ₹400 / kg"
   }
 ]

@@ -6,7 +6,7 @@
     "hiveId": "HIVE-UP-42",
     "location": "27, 42",
     "harvestDate": "2026-08-23",
-    "quantity": "78.7",
+    "quantity": 78.7,
     "floralSource": "Mixed flora",
     "notes": "hEY",
     "purityScore": 86,
@@ -56,5 +56,21 @@
     "registeredAt": "2026-08-25T03:55:32.524Z",
     "verified": true,
     "verifiedAt": "2026-08-25T03:56:00.187Z"
+  },
+  {
+    "id": "b0b59ffe-e53b-48c3-857b-2a7d9b591675",
+    "beekeeperName": "Paras",
+    "beekeeperVillage": "Nayjihgf",
+    "hiveId": "HIVE-UP-100",
+    "location": "26.92° N, 80.56° E",
+    "harvestDate": "2026-08-25",
+    "quantity": 30,
+    "floralSource": "Mixed flora",
+    "notes": "",
+    "purityScore": 85,
+    "photoFilename": "1787636139112.jpg",
+    "registeredAt": "2026-08-25T05:35:39.123Z",
+    "verified": true,
+    "verifiedAt": "2026-08-25T05:35:42.083Z"
   }
 ]
