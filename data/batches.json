@@ -40,5 +40,21 @@
     "purityScore": 96,
     "photoFilename": "1787550396250.jpg",
     "registeredAt": "2026-08-24T05:46:36.263Z"
+  },
+  {
+    "id": "1521b778-54bd-41e7-9884-b44599f4a29b",
+    "beekeeperName": "Ramesh Kumar",
+    "beekeeperVillage": "UP",
+    "hiveId": "HIVE-UP-48",
+    "location": "27.89°N, 80.97°W",
+    "harvestDate": "2026-08-25",
+    "quantity": 100,
+    "floralSource": "Mustard (Sarson)",
+    "notes": "",
+    "purityScore": 89,
+    "photoFilename": "1787630132511.jpg",
+    "registeredAt": "2026-08-25T03:55:32.524Z",
+    "verified": true,
+    "verifiedAt": "2026-08-25T03:56:00.187Z"
   }
 ]

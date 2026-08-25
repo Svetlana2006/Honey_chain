@@ -43,5 +43,20 @@
     "timestamp": "2026-08-24T05:46:36.266Z",
     "previousHash": "f61289b0807c6e55c28ea23aa54eb2e78650e01d87d28cc35d6a27f368c4b9f9",
     "hash": "3ddea233720c78b80208f8de1a1e258ca8e96474ce33f3b0a7dbe59190ed1cf3"
+  },
+  {
+    "blockIndex": 3,
+    "batchId": "1521b778-54bd-41e7-9884-b44599f4a29b",
+    "data": {
+      "quantity": 100,
+      "location": "27.89°N, 80.97°W",
+      "harvestDate": "2026-08-25",
+      "beekeeperName": "Ramesh Kumar",
+      "hiveId": "HIVE-UP-48",
+      "purityScore": 89
+    },
+    "timestamp": "2026-08-25T03:55:32.528Z",
+    "previousHash": "3ddea233720c78b80208f8de1a1e258ca8e96474ce33f3b0a7dbe59190ed1cf3",
+    "hash": "89e4dfa6868122bfe7de2c81d290d043c9cbd06a2cf488830f30c06a0ec29677"
   }
 ]
