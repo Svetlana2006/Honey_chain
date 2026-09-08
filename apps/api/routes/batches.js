@@ -18,21 +18,21 @@ const fs = require("fs");
 const db = require("../db");
 const ledger = require("../ledger");
 
-// ---- Multer: save uploaded photos to /data/photos/ ----
-const PHOTOS_DIR = path.join(__dirname, "..", "..", "..", "data", "photos");
-if (!fs.existsSync(PHOTOS_DIR)) fs.mkdirSync(PHOTOS_DIR, { recursive: true });
+// // ---- Multer: save uploaded photos to /data/photos/ ----
+// const PHOTOS_DIR = path.join(__dirname, "..", "..", "..", "data", "photos");
+// if (!fs.existsSync(PHOTOS_DIR)) fs.mkdirSync(PHOTOS_DIR, { recursive: true });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, PHOTOS_DIR),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, `${Date.now()}${ext}`);
-  },
-});
-const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, PHOTOS_DIR),
+//   filename: (req, file, cb) => {
+//     const ext = path.extname(file.originalname);
+//     cb(null, `${Date.now()}${ext}`);
+//   },
+// });
+// const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 // ---- POST /api/batches — Register a new batch ----
-router.post("/", upload.single("photo"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const {
       beekeeperName,
